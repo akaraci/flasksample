@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Iris Tahmin Uygulaması</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+
+<body>
+<div class="container">
+
+    <h1>🌸 Iris Çiçeği Tahmini</h1>
+    <p class="subtitle">
+        Makine öğrenmesi modeli ile çiçek türünü tahmin edin.
+    </p>
+
+    <form action="/predict" method="post">
+
+        <label>Sepal Length (cm)</label>
+        <input type="number" name="sepal_length"
+               step="0.1" placeholder="Örn: 5.1" required>
+
+        <label>Sepal Width (cm)</label>
+        <input type="number" name="sepal_width"
+               step="0.1" placeholder="Örn: 3.5" required>
+
+        <label>Petal Length (cm)</label>
+        <input type="number" name="petal_length"
+               step="0.1" placeholder="Örn: 1.4" required>
+
+        <label>Petal Width (cm)</label>
+        <input type="number" name="petal_width"
+               step="0.1" placeholder="Örn: 0.2" required>
+
+        <button type="submit">Tahmin Yap</button>
+    </form>
+
+    {% if result %}
+    <div class="result">
+        <h2>Tahmin Sonucu</h2>
+        <p>Çiçek türü:</p>
+        <strong>{{ result }}</strong>
+        <p>Model güveni: %{{ probability }}</p>
+    </div>
+    {% endif %}
+
+    {% if error %}
+    <div class="error">
+        {{ error }}
+    </div>
+    {% endif %}
+
+    <div class="info">
+        <b>Kullanılan model:</b> Random Forest<br>
+        <b>Veri seti:</b> Iris Dataset<br>
+        <b>Özellik sayısı:</b> 4
+    </div>
+
+</div>
+</body>
+</html>
